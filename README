@@ -1,0 +1,33 @@
+minetest-australopithecus-death-inventory-drop
+==============================================
+
+A system which makes the player drop their inventory on death.
+
+
+Usage
+=====
+
+The system activates itself, you just need to add the mod to the subgame.
+
+
+Configuration
+=============
+
+The system can be configured by adding settings to the `minetest.conf`:
+
+    # If the system should be activated, defaults to true.
+    deathinventorydrop_activate = true.
+    
+    # The name of the lists to drop, a comma separated list, defaults to "main".
+    deathinventorydrop_inventories = main
+    
+    # If the stacks that are split in some way, defaults to random.
+    # Possible values are:
+    #  random: The dropped stacks are split randomly.
+    #  single: The dropped stacks are split into every single item.
+    #  stack: The dropped stacks are dropped as they are.
+    deathinventorydrop_split = random
+    
+    # The maximum velocity of newly dropped items, defaults to "7, 10, 7".
+    deathinventorydrop_velocity = 7, 10, 7
+
