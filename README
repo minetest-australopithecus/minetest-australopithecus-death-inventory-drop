@@ -5,13 +5,13 @@ A system which makes the player drop their inventory on death.
 
 
 Usage
-=====
+-----
 
 The system activates itself, you just need to add the mod to the subgame.
 
 
 Configuration
-=============
+-------------
 
 The system can be configured by adding settings to the `minetest.conf`:
 
