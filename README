@@ -4,6 +4,14 @@ minetest-australopithecus-death-inventory-drop
 A system which makes the player drop their inventory on death.
 
 
+Features
+--------
+
+ * Items "explode" away from the player, spreading them over a fair distance in
+   all directions.
+ * Completely configurable from the configuration.
+
+
 Usage
 -----
 
