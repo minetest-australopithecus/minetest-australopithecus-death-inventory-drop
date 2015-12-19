@@ -36,6 +36,34 @@ The system can be configured by adding settings to the `minetest.conf`:
     #  stack: The dropped stacks are dropped as they are.
     deathinventorydrop_split = random
     
-    # The maximum velocity of newly dropped items, defaults to "7, 10, 7".
+    # The maximum velocity of newly dropped items, a list with x, y and z
+    # values, defaults to "7, 10, 7".
     deathinventorydrop_velocity = 7, 10, 7
+
+
+Drop additional items
+---------------------
+
+If you want to drop additional items, that is easily possible by invoking
+`deathinventorydrop.drop_inventory`, which accepts the Player, the InvRef
+and the name of the list to drop.
+
+    minetest.register_on_dieplayer(function(player)
+        -- Checking of the object exists allows us to define the dependency as
+        -- optional.
+        -- Checking if the system is active at all.
+        if deathinventorydrop ~= nil and deathinventorydrop.active then
+            -- Drops all items in the list and also clears the list.
+            deathinventorydrop.drop_inventory(player, your_inventory, "your_list")
+        else
+            -- Do something different here.
+        end
+    end)
+
+
+Force activation
+----------------
+
+You can force the activation of the system, even it has been disabled in
+the configuration, by invoking `deathinventorydrop.activate_internal`.
 
