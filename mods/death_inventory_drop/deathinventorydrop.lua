@@ -28,6 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --- A system which makes the player drop their inventory when they die.
 deathinventorydrop = {
+	--- If the system should be activated automatically.
+	activate = settings.get_bool("deathinventorydrop_activate", true),
+	
+	--- If the system is active/has been activated.
+	active = false,
+	
 	--- The list of inventories/list names to drop, they need to be in players
 	-- inventory, defaults to "main".
 	inventories = settings.get_list("deathinventorydrop_inventories", "main"),
@@ -44,8 +50,18 @@ deathinventorydrop = {
 --- Activates the system, if it has not been disabled in the configuration by
 -- setting "deathinventorydrop_activate" to "false".
 function deathinventorydrop.activate()
-	if settings.get_bool("deathinventorydrop_activate", true) then
+	if deathinventorydrop.activate then
+		deathinventorydrop.activate_internal()
+	end
+end
+
+--- Activates the system, without checking the configuration. Multiple
+-- invocations have no effect.
+function deathinventorydrop.activate_internal()
+	if not deathinventorydrop.active then
 		minetest.register_on_dieplayer(deathinventorydrop.drop)
+		
+		deathinventorydrop.active = true
 	end
 end
 

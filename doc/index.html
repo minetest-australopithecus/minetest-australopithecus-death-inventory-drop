@@ -56,6 +56,10 @@
  setting "deathinventorydrop_activate" to "false".</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#activate_internal">activate_internal ()</a></td>
+	<td class="summary">Activates the system, without checking the configuration.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#drop">drop (player)</a></td>
 	<td class="summary">Drops the inventory of the given player.</td>
 	</tr>
@@ -66,6 +70,14 @@
 </table>
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#activate">activate</a></td>
+	<td class="summary">If the system should be activated automatically.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#active">active</a></td>
+	<td class="summary">If the system is active/has been activated.</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#inventories">inventories</a></td>
 	<td class="summary">The list of inventories/list names to drop, they need to be in players
@@ -95,6 +107,21 @@
     <dd>
     Activates the system, if it has not been disabled in the configuration by
  setting "deathinventorydrop_activate" to "false".
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "activate_internal"></a>
+    <strong>activate_internal ()</strong>
+    </dt>
+    <dd>
+    Activates the system, without checking the configuration.  Multiple
+ invocations have no effect.
 
 
 
@@ -152,6 +179,34 @@
 </dl>
     <h2><a name="Fields"></a>Fields</h2>
     <dl class="function">
+    <dt>
+    <a name = "activate"></a>
+    <strong>activate</strong>
+    </dt>
+    <dd>
+    If the system should be activated automatically.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "active"></a>
+    <strong>active</strong>
+    </dt>
+    <dd>
+    If the system is active/has been activated.
+
+
+
+
+
+
+
+</dd>
     <dt>
     <a name = "inventories"></a>
     <strong>inventories</strong>
