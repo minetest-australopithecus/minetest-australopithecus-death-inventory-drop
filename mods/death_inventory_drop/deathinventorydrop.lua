@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --- A system which makes the player drop their inventory when they die.
 deathinventorydrop = {
 	--- If the system should be activated automatically.
-	activate = settings.get_bool("deathinventorydrop_activate", true),
+	activate_automatically = settings.get_bool("deathinventorydrop_activate", true),
 	
 	--- If the system is active/has been activated.
 	active = false,
@@ -50,7 +50,7 @@ deathinventorydrop = {
 --- Activates the system, if it has not been disabled in the configuration by
 -- setting "deathinventorydrop_activate" to "false".
 function deathinventorydrop.activate()
-	if deathinventorydrop.activate then
+	if deathinventorydrop.activate_automatically then
 		deathinventorydrop.activate_internal()
 	end
 end
