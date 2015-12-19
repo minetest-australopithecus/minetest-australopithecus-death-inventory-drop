@@ -76,7 +76,8 @@ function deathinventorydrop.drop(player)
 	end)
 end
 
---- Drops the given list from the given player.
+--- Drops the given list from the given player, removing all items from
+-- the list.
 --
 -- @param player The Player object.
 -- @param inventory The InvRef object.
