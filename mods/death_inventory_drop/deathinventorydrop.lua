@@ -38,6 +38,12 @@ deathinventorydrop = {
 	-- inventory, defaults to "main".
 	inventories = settings.get_list("deathinventorydrop_inventories", "main"),
 	
+	--- The percentage of destroyed items.
+	percentage_destroyed_items = settings.get_table("deathinventorydrop_percentage_destroyed_items", { min = 0.15, max = 0.35 }, "min", "max"),
+	
+	--- The percentage of retained items.
+	percentage_retained_items = settings.get_table("deathinventorydrop_percentage_retained_items", { min = 0, max = 0.15 }, "min", "max"),
+	
 	--- The split mode to use, can either be "random", "single" or "stack",
 	-- defaults to "random".
 	split = settings.get_string("deathinventorydrop_split", "random"),
@@ -83,17 +89,71 @@ end
 -- @param inventory The InvRef object.
 -- @param list_name The name of the list of which to drop.
 function deathinventorydrop.drop_inventory(player, inventory, list_name)
+	local items = inventory:get_list(list_name)
+	
+	local total_item_count = 0
+	for index, value in ipairs(items) do
+		total_item_count = total_item_count + value:get_count()
+	end
+	
+	-- Get the retained items.
+	local retained_items = deathinventorydrop.take_from_inventory(
+		items,
+		total_item_count,
+		deathinventorydrop.percentage_retained_items)
+	
+	-- Destroy some items.
+	deathinventorydrop.take_from_inventory(
+		items,
+		total_item_count,
+		deathinventorydrop.percentage_destroyed_items)
+	
 	itemutil.blop(
 		player,
-		inventory:get_list(list_name),
+		items,
 		deathinventorydrop.velocity.x,
 		deathinventorydrop.velocity.y,
 		deathinventorydrop.velocity.z,
 		deathinventorydrop.split)
 	
-	-- Now clear the whole list.
-	for index = 1, inventory:get_size(list_name), 1 do
-		inventory:set_stack(list_name, index, nil)
+	inventory:set_list(list_name, retained_items)
+end
+
+--- Takes random amount from the given list and returns the taken items.
+--
+-- @param items The list of items.
+-- @param total_item_count The total count of items in the list.
+-- @param range The range, having min and max values.
+-- @return The list of taken items.
+function deathinventorydrop.take_from_inventory(items, total_item_count, range)
+	local taken_items = {}
+	
+	if range.max > 0  then
+		local min_item_count = mathutil.round(total_item_count * range.min)
+		local max_item_count = mathutil.round(total_item_count * range.max)
+		local item_count = random.next_int(min_item_count, max_item_count)
+		local items_per_stack = mathutil.round(total_item_count / item_count)
+		
+		while item_count > 0 do
+			for index, value in ipairs(items) do
+				if item_count > 0 and value:get_count() > 0 then
+					local max_count = math.min(value:get_count(), math.min(items_per_stack, item_count))
+					local count = random.next_int(0, max_count)
+					
+					local taken_item = value:take_item(count)
+					
+					if taken_items[index] == nil then
+						taken_items[index] = taken_item
+					else
+						taken_items[index]:add_item(taken_item)
+					end
+					
+					item_count = item_count - count
+				end
+			end
+		end
 	end
+	
+	return taken_items
 end
 

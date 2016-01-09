@@ -9,6 +9,7 @@ Features
 
  * Items "explode" away from the player, spreading them over a fair distance in
    all directions.
+ * Certain percentage of items can be retained or be destroyed.
  * Completely configurable from the configuration.
 
 
@@ -28,6 +29,14 @@ The system can be configured by adding settings to the `minetest.conf`:
     
     # The name of the lists to drop, a comma separated list, defaults to "main".
     deathinventorydrop_inventories = main
+    
+    # The percentage of how many items are destroyed upon death, a random amount
+    # is picked based on the given range, defaults to "0.15, 0.35".
+    deathinventorydrop_percentage_destroyed_items = 0.15, 0.35
+    
+    # The percentage of how many items are retained, meaning the player is
+    # allowed to keep after death, defaults to "0, 0.15".
+    deathinventorydrop_percentage_retained_items = 0, 0.15
     
     # If the stacks that are split in some way, defaults to random.
     # Possible values are:
