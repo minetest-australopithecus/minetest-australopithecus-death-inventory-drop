@@ -142,11 +142,18 @@ function deathinventorydrop.take_from_inventory(items, total_item_count, range)
 		local item_count = random.next_int(min_item_count, max_item_count)
 		local items_per_stack = mathutil.round(total_item_count / item_count)
 		
-		while item_count > 0 do
+		-- Safeguard in case of misconfiguration.
+		local item_was_taken = true
+		
+		while item_count > 0 and item_was_taken do
+			item_was_taken = false
+			
 			for index, value in ipairs(items) do
 				if item_count > 0 and value:get_count() > 0 then
 					local max_count = math.min(value:get_count(), math.min(items_per_stack, item_count))
 					local count = random.next_int(0, max_count)
+					
+					item_was_taken = true
 					
 					local taken_item = value:take_item(count)
 					
