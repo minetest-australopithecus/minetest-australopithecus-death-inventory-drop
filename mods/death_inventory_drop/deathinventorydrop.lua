@@ -39,10 +39,18 @@ deathinventorydrop = {
 	inventories = settings.get_list("deathinventorydrop_inventories", "main"),
 	
 	--- The percentage of destroyed items.
-	percentage_destroyed_items = settings.get_table("deathinventorydrop_percentage_destroyed_items", { min = 0.15, max = 0.35 }, "min", "max"),
+	percentage_destroyed_items = settings.get_table(
+		"deathinventorydrop_percentage_destroyed_items",
+		{ min = 0.15, max = 0.35 },
+		{ name = "min", convert = tonumber },
+		{ name = "max", convert = tonumber }),
 	
 	--- The percentage of retained items.
-	percentage_retained_items = settings.get_table("deathinventorydrop_percentage_retained_items", { min = 0, max = 0.15 }, "min", "max"),
+	percentage_retained_items = settings.get_table(
+		"deathinventorydrop_percentage_retained_items",
+		{ min = 0, max = 0.15 },
+		{ name = "min", convert = tonumber },
+		{ name = "max", convert = tonumber }),
 	
 	--- The split mode to use, can either be "random", "single" or "stack",
 	-- defaults to "random".
