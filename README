@@ -27,6 +27,14 @@ The system can be configured by adding settings to the `minetest.conf`:
     # If the system should be activated, defaults to true.
     deathinventorydrop_activate = true
     
+    # If the field should be set to disable automatically pickup provided
+    # by the auto-pickup mod, defaults to false.
+    autodrops_autopickup_disable = false
+    
+    # The value for the timeout before the auto-pickup mod is allowed to pick
+    # it up, defaults to 2.
+    autodrops_autopickup_timeout = 2
+    
     # The name of the lists to drop, a comma separated list, defaults to "main".
     deathinventorydrop_inventories = main
     

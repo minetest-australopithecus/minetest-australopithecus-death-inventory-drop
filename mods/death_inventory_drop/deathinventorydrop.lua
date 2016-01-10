@@ -34,6 +34,12 @@ deathinventorydrop = {
 	--- If the system is active/has been activated.
 	active = false,
 	
+	--- If the field should be set to disable auto-pickup.
+	autopickup_disable = settings.get_bool("deathinventorydrop_autopickup_disable", false),
+	
+	--- The timeout value to set for auto-pickup.
+	autopickup_timeout = settings.get_number("deathinventorydrop_autopickup_timeout", 2),
+	
 	--- The list of inventories/list names to drop, they need to be in players
 	-- inventory, defaults to "main".
 	inventories = settings.get_list("deathinventorydrop_inventories", "main"),
@@ -116,13 +122,18 @@ function deathinventorydrop.drop_inventory(player, inventory, list_name)
 		total_item_count,
 		deathinventorydrop.percentage_destroyed_items)
 	
-	itemutil.blop(
+	local spawned_items = itemutil.blop(
 		player,
 		items,
 		deathinventorydrop.velocity.x,
 		deathinventorydrop.velocity.y,
 		deathinventorydrop.velocity.z,
 		deathinventorydrop.split)
+		
+	spawned_items:foreach(function(spawned_item, index)
+		spawned_item:get_luaentity().autopickup_disable = deathinventorydrop.autopickup_disable
+		spawned_item:get_luaentity().autopickup_timeout = deathinventorydrop.autopickup_timeout
+	end)
 	
 	inventory:set_list(list_name, retained_items)
 end
